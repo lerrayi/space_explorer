@@ -18,4 +18,31 @@ async function fetchImageOfTheDay(date) {
 }
 
 async function displayImageOfTheDay() {
+    console.log(await fetchImageOfTheDay("2025-01-01"));
+
+    const galleryItem = document.createElement('div');
+    galleryItem.classList.add('gallery-item');
+    const image = document.createElement('img');
+    const caption = document.createElement('p');
+
+    const data = await fetchImageOfTheDay("2025-01-01").catch(error => {
+        console.error('Error fetching image of the day:', error);
+        return {
+            url: 'img/placeholder.jpg', // Fallback image
+            title: 'Placeholder Image',
+            explanation: 'This is a placeholder image. Please try again later.'
+        };
+    });
+
+    image.src = data.url;
+    image.alt = data.title;
+    caption.textContent = data.explanation;
+
+    galleryItem.appendChild(image);
+    galleryItem.appendChild(caption);
+    document.getElementById('gallery').appendChild(galleryItem);
 }
+
+displayImageOfTheDay().catch(error => {
+    console.error('Error displaying image:', error);
+});
