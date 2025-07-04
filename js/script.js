@@ -18,10 +18,10 @@ async function fetchImageOfTheDay(date) {
 }
 
 async function displayImageOfTheDay() {
-    console.log(await fetchImageOfTheDay("2025-01-01"));
-
     const galleryItem = document.createElement('div');
     galleryItem.classList.add('gallery-item');
+    const title = document.createElement('h2');
+    const date = document.createElement('p');
     const image = document.createElement('img');
     const caption = document.createElement('p');
 
@@ -34,10 +34,17 @@ async function displayImageOfTheDay() {
         };
     });
 
+    console.log(data);
+
     image.src = data.url;
     image.alt = data.title;
+    title.textContent = data.title;
+    date.textContent = data.date;
+
     caption.textContent = data.explanation;
 
+    galleryItem.appendChild(title);
+    galleryItem.appendChild(date);
     galleryItem.appendChild(image);
     galleryItem.appendChild(caption);
     document.getElementById('gallery').appendChild(galleryItem);
