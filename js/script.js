@@ -17,7 +17,7 @@ async function fetchImageOfTheDay(date) {
     return await response.json();
 }
 
-async function displayImageOfTheDay() {
+async function displayImageOfTheDay(selectedDate) {
     const galleryItem = document.createElement('div');
     galleryItem.classList.add('gallery-item');
     const title = document.createElement('h2');
@@ -25,7 +25,7 @@ async function displayImageOfTheDay() {
     const image = document.createElement('img');
     const caption = document.createElement('p');
 
-    const data = await fetchImageOfTheDay("2025-01-01").catch(error => {
+    const data = await fetchImageOfTheDay(selectedDate).catch(error => {
         console.error('Error fetching image of the day:', error);
         return {
             url: 'img/placeholder.jpg', // Fallback image
@@ -50,6 +50,25 @@ async function displayImageOfTheDay() {
     document.getElementById('gallery').appendChild(galleryItem);
 }
 
-displayImageOfTheDay().catch(error => {
-    console.error('Error displaying image:', error);
-});
+async function displayImagesForDateRange() {
+    const startDate = new Date(startInput.value);
+    const endDate = new Date(endInput.value);
+    
+    // Clear existing gallery
+    document.getElementById('gallery').innerHTML = '';
+    
+    // Generate all dates between start and end (inclusive)
+    const currentDate = new Date(startDate);
+    while (currentDate <= endDate) {
+        const dateString = currentDate.toISOString().split('T')[0];
+        await displayImageOfTheDay(dateString);
+        currentDate.setDate(currentDate.getDate() + 1);
+    }
+}
+
+// Add event listeners to date inputs
+startInput.addEventListener('change', displayImagesForDateRange);
+endInput.addEventListener('change', displayImagesForDateRange);
+
+// Initial load of images when page loads
+window.addEventListener('load', displayImagesForDateRange);
