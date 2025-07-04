@@ -1,6 +1,7 @@
 // Find our date picker inputs on the page
 const startInput = document.getElementById('startDate');
 const endInput = document.getElementById('endDate');
+const fetchImagesButton = document.getElementById('fetchImagesButton');
 
 // Call the setupDateInputs function from dateRange.js
 // This sets up the date pickers to:
@@ -67,8 +68,4 @@ async function displayImagesForDateRange() {
 }
 
 // Add event listeners to date inputs
-startInput.addEventListener('change', displayImagesForDateRange);
-endInput.addEventListener('change', displayImagesForDateRange);
-
-// Initial load of images when page loads
-window.addEventListener('load', displayImagesForDateRange);
+fetchImagesButton.addEventListener('click', displayImagesForDateRange);
