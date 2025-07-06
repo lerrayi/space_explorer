@@ -129,6 +129,12 @@ button:hover {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover,
+.gallery-item:focus {
+  transform: scale(1.03);
 }
 
 /* Three columns on wider screens */

@@ -33,6 +33,7 @@ async function fetchImageOfTheDay(date) {
 async function createGalleryItem(selectedDate) {
     const galleryItem = document.createElement('div');
     galleryItem.classList.add('gallery-item');
+    galleryItem.tabIndex = 0; // Make it focusable for accessibility
     const title = document.createElement('h2');
     const date = document.createElement('p');
     const image = document.createElement('img');
